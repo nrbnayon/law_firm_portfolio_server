@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "D:\\Nayon xD\\Dashboard\\Dashboard Design\\backend_server\\logs\\error\\.10ea5b2cdca810481b4a0665e1afd124f2a187af-audit.json",
+    "files": [
+        {
+            "date": 1762947863248,
+            "name": "D:\\Nayon xD\\Dashboard\\Dashboard Design\\backend_server\\logs\\error\\2025-11-12-17-error.log",
+            "hash": "adb5ffa778237206964b8865ab53de7bdc8df5fcc09b761056008f878578dad9"
+        }
+    ],
+    "hashType": "sha256"
+}
