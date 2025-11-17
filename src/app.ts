@@ -13,15 +13,28 @@ const app = express();
 app.use(Morgan.successHandler);
 app.use(Morgan.errorHandler);
 
-//body parser
+// CORS — check ENV first, fallback to localhost
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(",")
+  : ["http://localhost:3000"];
+
 app.use(
   cors({
-    origin: ['http://localhost:3000'],
+    origin: (origin, callback) => {
+      // allow requests with no origin (like mobile apps, curl)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
 
-// JSON and text/plain content types
+// JSON and text/plain content types //body parser
 app.use(express.json({ limit: '1024mb' }));
 app.use(express.text({ type: 'text/plain', limit: '1024mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1024mb' }));
