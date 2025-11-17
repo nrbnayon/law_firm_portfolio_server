@@ -41,7 +41,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
 
 const verifyEmail = catchAsync(async (req: Request, res: Response) => {
   const verifyData = req.body;
-  console.log("Get email and otp::", verifyData);
+  // console.log("Get email and otp::", verifyData);
 
   const result = await AuthService.verifyEmailToDB(verifyData);
 
