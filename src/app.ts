@@ -42,6 +42,7 @@ app.get('/api/v1/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'success',
     message: 'Server is healthy and running',
+    version: process.env.VERSION || "1.0.0",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: process.env.NODE_ENV || 'development',

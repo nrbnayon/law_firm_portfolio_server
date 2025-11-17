@@ -1,0 +1,118 @@
+17/11/2025 04:06:22 [nrb-nayon] ERROR: uncaughtException: Attorney is not defined
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:21:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:21:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12) {"error":{},"exception":true,"date":"Mon Nov 17 2025 10:06:22 GMT+0600 (Bangladesh Standard Time)","process":{"pid":24448,"uid":null,"gid":null,"cwd":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v22.17.1","argv":["C:\\Program Files\\nodejs\\node.exe","src/server.ts"],"memoryUsage":{"rss":111452160,"heapTotal":65200128,"heapUsed":44472720,"external":20824730,"arrayBuffers":18510166}},"os":{"loadavg":[0,0,0],"uptime":380033.562},"trace":[{"column":12,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\src\\jobs\\autoFileCleanup.ts","function":null,"line":21,"method":null,"native":false},{"column":14,"file":"node:internal/modules/cjs/loader","function":null,"line":1730,"method":null,"native":false},{"column":25,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\source-map-support\\source-map-support.js","function":"Module._compile","line":568,"method":"_compile","native":false},{"column":33,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"Module.m._compile","line":69,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":null,"line":1895,"method":null,"native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions..jsx.require.extensions..js","line":114,"method":".js","native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions.<computed>","line":71,"method":"<computed>","native":false},{"column":13,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\ts-node-dev\\lib\\hook.js","function":"Object.nodeDevHook [as .ts]","line":63,"method":"ts]","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":1465,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Function._load","line":1282,"method":"_load","native":false}]}
+17/11/2025 04:06:22 [nrb-nayon] ERROR: Uncaught Exception: Attorney is not defined
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:21:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+17/11/2025 04:06:26 [nrb-nayon] ERROR: uncaughtException: Attorney is not defined
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:20:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:20:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12) {"error":{},"exception":true,"date":"Mon Nov 17 2025 10:06:26 GMT+0600 (Bangladesh Standard Time)","process":{"pid":40292,"uid":null,"gid":null,"cwd":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v22.17.1","argv":["C:\\Program Files\\nodejs\\node.exe","src/server.ts"],"memoryUsage":{"rss":111996928,"heapTotal":65200128,"heapUsed":44602304,"external":20824730,"arrayBuffers":18510166}},"os":{"loadavg":[0,0,0],"uptime":380037.531},"trace":[{"column":12,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\src\\jobs\\autoFileCleanup.ts","function":null,"line":20,"method":null,"native":false},{"column":14,"file":"node:internal/modules/cjs/loader","function":null,"line":1730,"method":null,"native":false},{"column":25,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\source-map-support\\source-map-support.js","function":"Module._compile","line":568,"method":"_compile","native":false},{"column":33,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"Module.m._compile","line":69,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":null,"line":1895,"method":null,"native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions..jsx.require.extensions..js","line":114,"method":".js","native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions.<computed>","line":71,"method":"<computed>","native":false},{"column":13,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\ts-node-dev\\lib\\hook.js","function":"Object.nodeDevHook [as .ts]","line":63,"method":"ts]","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":1465,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Function._load","line":1282,"method":"_load","native":false}]}
+17/11/2025 04:06:26 [nrb-nayon] ERROR: Uncaught Exception: Attorney is not defined
+ReferenceError: Attorney is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:20:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+17/11/2025 04:06:30 [nrb-nayon] ERROR: uncaughtException: PracticeArea is not defined
+ReferenceError: PracticeArea is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:25:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+ReferenceError: PracticeArea is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:25:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12) {"error":{},"exception":true,"date":"Mon Nov 17 2025 10:06:30 GMT+0600 (Bangladesh Standard Time)","process":{"pid":6960,"uid":null,"gid":null,"cwd":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server","execPath":"C:\\Program Files\\nodejs\\node.exe","version":"v22.17.1","argv":["C:\\Program Files\\nodejs\\node.exe","src/server.ts"],"memoryUsage":{"rss":111910912,"heapTotal":65409024,"heapUsed":45060448,"external":20824814,"arrayBuffers":18510254}},"os":{"loadavg":[0,0,0],"uptime":380041.64},"trace":[{"column":12,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\src\\jobs\\autoFileCleanup.ts","function":null,"line":25,"method":null,"native":false},{"column":14,"file":"node:internal/modules/cjs/loader","function":null,"line":1730,"method":null,"native":false},{"column":25,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\source-map-support\\source-map-support.js","function":"Module._compile","line":568,"method":"_compile","native":false},{"column":33,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"Module.m._compile","line":69,"method":"_compile","native":false},{"column":10,"file":"node:internal/modules/cjs/loader","function":null,"line":1895,"method":null,"native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions..jsx.require.extensions..js","line":114,"method":".js","native":false},{"column":20,"file":"C:\\Users\\nrbna\\AppData\\Local\\Temp\\ts-node-dev-hook-08040855604281272.js","function":"require.extensions.<computed>","line":71,"method":"<computed>","native":false},{"column":13,"file":"D:\\Nayon xD\\Dashboard\\Dashboard Design\\law_firm_portfolio_server\\backend_server\\node_modules\\ts-node-dev\\lib\\hook.js","function":"Object.nodeDevHook [as .ts]","line":63,"method":"ts]","native":false},{"column":32,"file":"node:internal/modules/cjs/loader","function":"Module.load","line":1465,"method":"load","native":false},{"column":12,"file":"node:internal/modules/cjs/loader","function":"Function._load","line":1282,"method":"_load","native":false}]}
+17/11/2025 04:06:30 [nrb-nayon] ERROR: Uncaught Exception: PracticeArea is not defined
+ReferenceError: PracticeArea is not defined
+    at Object.<anonymous> (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\src\jobs\autoFileCleanup.ts:25:12)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1730:14)
+    at Module._compile (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:69:33)
+    at node:internal/modules/cjs/loader:1895:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:114:20)
+    at require.extensions.<computed> (C:\Users\nrbna\AppData\Local\Temp\ts-node-dev-hook-08040855604281272.js:71:20)
+    at Object.nodeDevHook [as .ts] (D:\Nayon xD\Dashboard\Dashboard Design\law_firm_portfolio_server\backend_server\node_modules\ts-node-dev\lib\hook.js:63:13)
+    at Module.load (node:internal/modules/cjs/loader:1465:32)
+    at Function._load (node:internal/modules/cjs/loader:1282:12)
+17/11/2025 04:43:28 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_23_161057-1763354391138-743002505.png 404 - 3.760 ms
+17/11/2025 04:43:41 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_18_154854-1763354398265-450899016.png 404 - 1.378 ms
+17/11/2025 04:43:48 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.280 ms
+17/11/2025 04:44:09 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.265 ms
+17/11/2025 04:44:11 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_23_161057-1763354391138-743002505.png 404 - 0.852 ms
+17/11/2025 04:44:31 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.491 ms
+17/11/2025 04:44:55 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practice/Screenshot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.487 ms
+17/11/2025 04:46:21 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practi%E2%80%A6hot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.216 ms
+17/11/2025 04:46:24 [nrb-nayon] ERROR: 127.0.0.1 - GET /favicon.ico 404 - 0.425 ms
+17/11/2025 04:46:38 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practi%E2%80%A6hot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.236 ms
+17/11/2025 04:46:39 [nrb-nayon] ERROR: 127.0.0.1 - GET /favicon.ico 404 - 0.279 ms
+17/11/2025 04:46:46 [nrb-nayon] ERROR: 127.0.0.1 - GET /api/v1/uploads/images/practi%E2%80%A6hot_2025_10_18_154854-1763354398265-450899016.png 404 - 0.416 ms
+17/11/2025 04:48:25 [nrb-nayon] ERROR: 127.0.0.1 - GET /uploads/images/practice/Scre%E2%80%A6hot_2025_10_18_154854-1763354398265-450899016.png 404 - 4.936 ms

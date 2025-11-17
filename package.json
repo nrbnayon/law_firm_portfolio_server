@@ -1,6 +1,6 @@
 {
-  "name": "backend",
-  "version": "1.0.1",
+  "name": "law_firm_portfolio_server",
+  "version": "1.0.0",
   "description": "Backend Template with Express, MongoDB, Redis, and Socket.IO",
   "main": "dist/server.js",
   "scripts": {
