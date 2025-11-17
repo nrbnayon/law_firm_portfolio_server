@@ -19,14 +19,14 @@ const auth = (...roles: string[]) => {
     try {
       // Extracting token from authorization header
       const tokenWithBearer = req.headers.authorization;
-      console.log("Token sent from frontend:::::::", tokenWithBearer);
+      // console.log("Token sent from frontend:::::::", tokenWithBearer);
       if (!tokenWithBearer || !tokenWithBearer.startsWith("Bearer ")) {
         throw new AppError(StatusCodes.UNAUTHORIZED, "You are not authorized");
       }
       // Get the token
       const token = tokenWithBearer.split(" ")[1];
 
-      console.log("token check:: ", token, "::::::", tokenWithBearer);
+      // console.log("token check:: ", token, "::::::", tokenWithBearer);
       // Verify the token using the jwtHelper
       let decodedUser;
       try {

@@ -5,7 +5,7 @@ import fs from "fs";
 import { Request, Response, NextFunction } from "express";
 import sharp from "sharp";
 import { StatusCodes } from "http-status-codes";
-import { logger } from "../utils/logger";
+import { logger, errorLogger } from "../utils/logger";
 
 // ============================================
 // DIRECTORY SETUP
@@ -48,7 +48,9 @@ const ALLOWED_MIME_TYPES = {
 const ensureSubfolderExists = (subfolder?: string): string => {
   if (!subfolder) return uploadDirs.images;
 
-  const subfolderPath = path.join(uploadDirs.images, subfolder);
+  // Sanitize subfolder name to prevent directory traversal
+  const sanitizedSubfolder = subfolder.replace(/[^a-zA-Z0-9_-]/g, "_");
+  const subfolderPath = path.join(uploadDirs.images, sanitizedSubfolder);
 
   if (!fs.existsSync(subfolderPath)) {
     fs.mkdirSync(subfolderPath, { recursive: true });
@@ -67,29 +69,39 @@ const createStorage = (subfolder?: string) => {
     destination: (req: Request, file: Express.Multer.File, cb) => {
       let uploadPath = uploadDirs.images; // default
 
-      // Determine upload path based on file type
-      if (
-        file.fieldname === "audioFile" ||
-        file.mimetype.startsWith("audio/")
-      ) {
-        uploadPath = uploadDirs.medias;
-      } else if (file.mimetype === "application/pdf") {
-        uploadPath = uploadDirs.docs;
-      } else if (file.mimetype.startsWith("image/")) {
-        uploadPath = subfolder
-          ? ensureSubfolderExists(subfolder)
-          : uploadDirs.images;
-      }
+      try {
+        // Determine upload path based on file type
+        if (
+          file.fieldname === "audioFile" ||
+          file.mimetype.startsWith("audio/")
+        ) {
+          uploadPath = uploadDirs.medias;
+        } else if (file.mimetype === "application/pdf") {
+          uploadPath = uploadDirs.docs;
+        } else if (file.mimetype.startsWith("image/")) {
+          uploadPath = subfolder
+            ? ensureSubfolderExists(subfolder)
+            : uploadDirs.images;
+        }
 
-      cb(null, uploadPath);
+        cb(null, uploadPath);
+      } catch (error) {
+        errorLogger.error("Error determining upload destination:", error);
+        cb(new Error("Failed to determine upload destination"), "");
+      }
     },
     filename: (req: Request, file: Express.Multer.File, cb) => {
-      const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-      const ext = path.extname(file.originalname);
-      const baseName = path.basename(file.originalname, ext);
-      const sanitizedBaseName = baseName.replace(/[^a-zA-Z0-9]/g, "_");
+      try {
+        const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+        const ext = path.extname(file.originalname);
+        const baseName = path.basename(file.originalname, ext);
+        const sanitizedBaseName = baseName.replace(/[^a-zA-Z0-9]/g, "_");
 
-      cb(null, `${sanitizedBaseName}-${uniqueSuffix}${ext}`);
+        cb(null, `${sanitizedBaseName}-${uniqueSuffix}${ext}`);
+      } catch (error) {
+        errorLogger.error("Error generating filename:", error);
+        cb(new Error("Failed to generate filename"), "");
+      }
     },
   });
 };
@@ -136,10 +148,11 @@ const optimizeImage = async (filePath: string): Promise<boolean> => {
     }
 
     const stats = fs.statSync(filePath);
-    const fileSizeInMB = stats.size / (1024 * 1024);
+    const fileSizeInBytes = stats.size;
+    const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
 
     // Only optimize if file is larger than threshold
-    if (fileSizeInMB > FILE_LIMITS.imageOptimizationThreshold / (1024 * 1024)) {
+    if (fileSizeInBytes > FILE_LIMITS.imageOptimizationThreshold) {
       const optimizedPath = filePath.replace(ext, `_optimized${ext}`);
 
       await sharp(filePath)
@@ -150,9 +163,23 @@ const optimizeImage = async (filePath: string): Promise<boolean> => {
         .jpeg({ quality: 85, progressive: true })
         .toFile(optimizedPath);
 
+      const optimizedStats = fs.statSync(optimizedPath);
+      const optimizedSizeInMB = optimizedStats.size / (1024 * 1024);
+
       logger.info(
-        `Image optimized: ${path.basename(filePath)} (${fileSizeInMB.toFixed(2)}MB)`
+        `Image optimized: ${path.basename(filePath)} (${fileSizeInMB.toFixed(2)}MB → ${optimizedSizeInMB.toFixed(2)}MB)`
       );
+
+      // If optimized version is smaller, replace original
+      if (optimizedStats.size < fileSizeInBytes) {
+        fs.unlinkSync(filePath);
+        fs.renameSync(optimizedPath, filePath);
+        logger.info(`Replaced original with optimized version`);
+      } else {
+        // Optimized version is larger, delete it
+        fs.unlinkSync(optimizedPath);
+        logger.info(`Optimized version larger, keeping original`);
+      }
 
       return true;
     }
@@ -163,7 +190,7 @@ const optimizeImage = async (filePath: string): Promise<boolean> => {
 
     return false;
   } catch (error) {
-    logger.error(`Image optimization failed for ${filePath}:`, error);
+    errorLogger.error(`Image optimization failed for ${filePath}:`, error);
     return false;
   }
 };
@@ -177,79 +204,107 @@ const processUploadedFiles = async (
   body: any,
   subfolder?: string
 ): Promise<void> => {
-  const getImagePath = (filename: string) => {
-    return subfolder
-      ? `/uploads/images/${subfolder}/${filename}`
-      : `/uploads/images/${filename}`;
+  // Helper to generate correct path based on file location
+  const getFilePath = (file: Express.Multer.File): string => {
+    const filename = file.filename;
+    const fileDir = path.dirname(file.path);
+    const relativePath = path.relative(process.cwd(), fileDir);
+
+    // Normalize path separators to forward slashes for URLs
+    return `/${relativePath}/${filename}`.replace(/\\/g, "/");
   };
 
-  const fileProcessors: Record<string, (file: Express.Multer.File) => void> = {
+  const fileProcessors: Record<
+    string,
+    (file: Express.Multer.File) => void | Promise<void>
+  > = {
     // Single image fields
-    image: (file) => {
-      body.image = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background image optimization failed:", error);
-      });
+    image: async (file) => {
+      body.image = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error("Background image optimization failed:", error);
+        });
+      }
     },
-    profileImage: (file) => {
-      body.profileImage = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background profile image optimization failed:", error);
-      });
+    profileImage: async (file) => {
+      body.profileImage = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error(
+            "Background profile image optimization failed:",
+            error
+          );
+        });
+      }
     },
-    bannerImage: (file) => {
-      body.bannerImage = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background banner image optimization failed:", error);
-      });
+    bannerImage: async (file) => {
+      body.bannerImage = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error(
+            "Background banner image optimization failed:",
+            error
+          );
+        });
+      }
     },
-    avatar: (file) => {
-      body.avatar = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background avatar optimization failed:", error);
-      });
+    avatar: async (file) => {
+      body.avatar = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error("Background avatar optimization failed:", error);
+        });
+      }
     },
-    banner: (file) => {
-      body.banner = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background banner optimization failed:", error);
-      });
+    banner: async (file) => {
+      body.banner = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error("Background banner optimization failed:", error);
+        });
+      }
     },
-    logo: (file) => {
-      body.logo = getImagePath(file.filename);
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background logo optimization failed:", error);
-      });
+    logo: async (file) => {
+      body.logo = getFilePath(file);
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error("Background logo optimization failed:", error);
+        });
+      }
     },
 
     // Multiple images
-    images: (file) => {
+    images: async (file) => {
       if (!body.images) body.images = [];
-      body.images.push(getImagePath(file.filename));
-      optimizeImage(file.path).catch((error) => {
-        logger.error("Background images optimization failed:", error);
-      });
+      body.images.push(getFilePath(file));
+      if (file.mimetype.startsWith("image/")) {
+        await optimizeImage(file.path).catch((error) => {
+          errorLogger.error("Background images optimization failed:", error);
+        });
+      }
     },
 
     // Audio file
     audioFile: (file) => {
-      body.audioFile = `/uploads/medias/${file.filename}`;
+      body.audioFile = getFilePath(file);
     },
 
     // Document
     document: (file) => {
-      body.document = `/uploads/docs/${file.filename}`;
+      body.document = getFilePath(file);
     },
   };
 
   // Process each uploaded file
   for (const [fieldName, fileArray] of Object.entries(files)) {
     if (fileProcessors[fieldName]) {
-      fileArray.forEach((file) => fileProcessors[fieldName](file));
+      for (const file of fileArray) {
+        await fileProcessors[fieldName](file);
+      }
     }
   }
 };
-
 
 // ============================================
 // MAIN FILE UPLOAD HANDLER WITH OPTIONS
@@ -288,7 +343,7 @@ const fileUploadHandler = (options?: FileUploadOptions) => {
     uploadFields(req, res, async (err: any) => {
       // Handle multer errors
       if (err instanceof multer.MulterError) {
-        logger.error("Multer error:", err);
+        errorLogger.error("Multer error:", err);
 
         if (err.code === "LIMIT_FILE_SIZE") {
           return res.status(StatusCodes.BAD_REQUEST).json({
@@ -312,7 +367,7 @@ const fileUploadHandler = (options?: FileUploadOptions) => {
 
       // Handle other errors
       if (err) {
-        logger.error("File upload error:", err);
+        errorLogger.error("File upload error:", err);
         return res.status(StatusCodes.BAD_REQUEST).json({
           success: false,
           message: err.message || "File upload failed",
@@ -329,11 +384,12 @@ const fileUploadHandler = (options?: FileUploadOptions) => {
           );
         }
 
-
-        logger.info("File upload completed successfully");
+        logger.info(
+          `File upload completed successfully${subfolder ? ` (subfolder: ${subfolder})` : ""}`
+        );
         next();
       } catch (error) {
-        logger.error("File processing error:", error);
+        errorLogger.error("File processing error:", error);
         return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
           success: false,
           message: "File processing failed",
@@ -349,6 +405,11 @@ const fileUploadHandler = (options?: FileUploadOptions) => {
 
 export const deleteUploadedFile = (filePath: string): void => {
   try {
+    if (!filePath) {
+      logger.warn("Delete file called with empty path");
+      return;
+    }
+
     const fullPath = path.join(process.cwd(), filePath);
 
     if (fs.existsSync(fullPath)) {
@@ -363,10 +424,34 @@ export const deleteUploadedFile = (filePath: string): void => {
         fs.unlinkSync(optimizedPath);
         logger.info(`Deleted optimized file: ${optimizedPath}`);
       }
+    } else {
+      logger.warn(`File not found for deletion: ${filePath}`);
     }
   } catch (error) {
-    logger.error(`Failed to delete file ${filePath}:`, error);
+    errorLogger.error(`Failed to delete file ${filePath}:`, error);
   }
 };
 
+// ============================================
+// BULK CLEANUP UTILITY
+// ============================================
+
+export const deleteUploadedFiles = (filePaths: string[]): void => {
+  if (!Array.isArray(filePaths)) {
+    logger.warn("deleteUploadedFiles called with non-array argument");
+    return;
+  }
+
+  filePaths.forEach((filePath) => {
+    if (filePath) {
+      deleteUploadedFile(filePath);
+    }
+  });
+};
+
+// ============================================
+// EXPORTS
+// ============================================
+
 export default fileUploadHandler;
+export { FILE_LIMITS, ALLOWED_MIME_TYPES, uploadDirs };

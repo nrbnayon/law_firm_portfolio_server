@@ -11,8 +11,9 @@ import {
 import generateOTP from "../../shared/utils/generateOTP";
 import { emailTemplate } from "../../shared/email/emailTemplate";
 import { emailHelper } from "../../shared/email/emailHelper";
-import { logger } from "../../shared/utils/logger";
+import { errorLogger, logger } from "../../shared/utils/logger";
 import QueryBuilder from "../../shared/utils/QueryBuilder";
+import { FileManager } from "../../shared/utils/fileManager";
 
 const createUserIntoDB = async (payload: Partial<IUser>): Promise<IUser> => {
   // Check if email already exists
@@ -122,8 +123,79 @@ const getUserProfileFromDB = async (userId: string): Promise<IUser> => {
   return user;
 };
 
+
+const cleanupUnverifiedUsers = async (
+  hoursOld: number = 24
+): Promise<{ deletedCount: number; filesDeleted: number }> => {
+  try {
+    const cutoffTime = new Date(Date.now() - hoursOld * 60 * 60 * 1000);
+
+    // First, find unverified users to get their file references
+    const unverifiedUsers = await User.find({
+      verified: false,
+      createdAt: { $lt: cutoffTime },
+    }).select("profileImage email fullName");
+
+    if (unverifiedUsers.length === 0) {
+      logger.info("No unverified users to cleanup");
+      return { deletedCount: 0, filesDeleted: 0 };
+    }
+
+    // Collect file paths for deletion
+    const filesToDelete: string[] = [];
+    unverifiedUsers.forEach((user) => {
+      if (user.profileImage) {
+        filesToDelete.push(user.profileImage);
+      }
+    });
+
+    // Delete associated files
+    let filesDeleted = 0;
+    if (filesToDelete.length > 0) {
+      await FileManager.deleteFiles(filesToDelete);
+      filesDeleted = filesToDelete.length;
+      logger.info(`🗑️  Deleted ${filesDeleted} files from unverified users`);
+    }
+
+    // Delete users from database
+    const result = await User.deleteMany({
+      verified: false,
+      createdAt: { $lt: cutoffTime },
+    });
+
+    if (result.deletedCount > 0) {
+      logger.info(
+        `✅ Permanently deleted ${result.deletedCount} unverified users older than ${hoursOld} hours`
+      );
+
+      // Log some details about deleted users (without sensitive info)
+      const deletedEmails = unverifiedUsers
+        .slice(0, 5)
+        .map((u) => u.email)
+        .join(", ");
+
+      if (unverifiedUsers.length > 5) {
+        logger.info(
+          `Deleted users include: ${deletedEmails} and ${unverifiedUsers.length - 5} more...`
+        );
+      } else {
+        logger.info(`Deleted users: ${deletedEmails}`);
+      }
+    }
+
+    return {
+      deletedCount: result.deletedCount,
+      filesDeleted,
+    };
+  } catch (error) {
+    errorLogger.error("❌ Error cleaning up unverified users:", error);
+    throw error;
+  }
+};
+
 export const UserService = {
   createUserIntoDB,
   getUserProfileFromDB,
   getAllUsersFromDB,
+  cleanupUnverifiedUsers,
 };

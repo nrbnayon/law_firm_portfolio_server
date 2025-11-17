@@ -1,47 +1,49 @@
+// src/jobs/cleanupJobs.ts
 import cron from "node-cron";
-// import { analyticsService } from '../../../../Backend/src/app/modules/analytics/analytics.service';
-// import { UserService } from '../../../../Backend/src/app/modules/user/user.service';
-// import { startAutoFileCleanup } from '../../../../Backend/src/jobs/autoFileCleanup';
-// import { startAllNotificationCronJobs } from '../../../../Backend/src/jobs/notificationCron';
-import { logger } from "../shared/utils/logger";
-
-// Cleanup old analytics data - runs weekly on Sunday at 3 AM
-export const startAnalyticsCleanup = () => {
-  cron.schedule("0 3 * * 0", async () => {
-    try {
-      logger.info("Starting analytics cleanup...");
-      // await analyticsService.cleanupOldAnalytics(365);
-      logger.info("Analytics cleanup completed");
-    } catch (error) {
-      logger.error("Error in analytics cleanup:", error);
-    }
-  });
-
-  logger.info("Analytics cleanup job scheduled");
-};
+import { logger, errorLogger } from "../shared/utils/logger";
+import { UserService } from "../features/user/user.service";
+import { startAutoFileCleanup } from "./autoFileCleanup";
 
 // Cleanup unverified users - runs every 6 hours
 export const startUnverifiedUsersCleanup = () => {
-  // ✅ Add 'export' here
-  cron.schedule("0 */6 * * *", async () => {
+  // Define the cleanup function
+  const cleanupTask = async () => {
     try {
-      logger.info("Starting unverified users cleanup...");
-      // const result = await UserService.cleanupUnverifiedUsers(24);
-      logger.info(`Unverified users cleanup completed. Permanently deleted:  `);
-    } catch (error) {
-      logger.error("Error in unverified users cleanup:", error);
-    }
-  });
+      logger.info("🧹 Starting unverified users cleanup...");
+      const result = await UserService.cleanupUnverifiedUsers(24);
 
-  logger.info("Unverified users cleanup job scheduled (every 6 hours)");
+      if (result.deletedCount > 0) {
+        logger.info(
+          `✅ Unverified users cleanup completed. Permanently deleted: ${result.deletedCount} users`
+        );
+      } else {
+        logger.info(
+          "✅ Unverified users cleanup completed. No users to delete."
+        );
+      }
+    } catch (error) {
+      errorLogger.error("❌ Error in unverified users cleanup:", error);
+    }
+  };
+
+  // Schedule the job to run every 6 hours
+  cron.schedule("0 */6 * * *", cleanupTask);
+
+  logger.info("📅 Unverified users cleanup job scheduled (every 6 hours)");
+
+  // Run immediately on startup (optional, but recommended)
+  cleanupTask().catch((error) => {
+    errorLogger.error("Error in initial unverified users cleanup:", error);
+  });
 };
 
 // Start all cleanup jobs
 export const startAllCleanupJobs = () => {
-  startAnalyticsCleanup();
-  // startAutoFileCleanup();
-  // startAllNotificationCronJobs(3);
-  startUnverifiedUsersCleanup(); // ✅ Now this will work
-
-  logger.info("All cleanup and notification cron jobs started");
+  try {
+    startAutoFileCleanup();
+    startUnverifiedUsersCleanup();
+    logger.info("✅ All cleanup jobs started successfully");
+  } catch (error) {
+    errorLogger.error("❌ Failed to start cleanup jobs:", error);
+  }
 };
