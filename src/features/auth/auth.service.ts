@@ -138,7 +138,11 @@ const verifyEmailToDB = async (payload: IVerifyEmail) => {
     oneTimeCode
   );
 
-  if (isExistUser.authentication.oneTimeCode !== oneTimeCode) {
+  // FIX: Convert both to numbers for comparison
+  const storedOTP = Number(isExistUser.authentication.oneTimeCode);
+  const providedOTP = Number(oneTimeCode);
+
+  if (storedOTP !== providedOTP) {
     throw new AppError(StatusCodes.BAD_REQUEST, "You provided wrong otp");
   }
 
