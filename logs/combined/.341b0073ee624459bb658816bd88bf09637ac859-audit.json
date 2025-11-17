@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 30
+    },
+    "auditLog": "D:\\Nayon xD\\Backend\\law_firm_portfolio_server\\logs\\combined\\.341b0073ee624459bb658816bd88bf09637ac859-audit.json",
+    "files": [
+        {
+            "date": 1763369116641,
+            "name": "D:\\Nayon xD\\Backend\\law_firm_portfolio_server\\logs\\combined\\2025-11-17-combined.log",
+            "hash": "8f8d053d6187a8443cf8406a727261050d2dbdde5dd92c2fd5ad9f9384d8633e"
+        }
+    ],
+    "hashType": "sha256"
+}

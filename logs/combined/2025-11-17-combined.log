@@ -924,3 +924,43 @@
 17/11/2025 05:06:36 [nrb-nayon] INFO: 127.0.0.1 - OPTIONS /api/v1/attorneys?role=admin 204 - 0.328 ms
 17/11/2025 05:06:37 [nrb-nayon] INFO: 127.0.0.1 - GET /api/v1/attorneys?role=admin 304 - 90.498 ms
 17/11/2025 05:06:37 [nrb-nayon] INFO: 127.0.0.1 - GET /api/v1/attorneys?role=admin 304 - 87.943 ms
+17/11/2025 08:45:17 [nrb-nayon] INFO: Redis disabled for local development
+17/11/2025 08:45:19 [nrb-nayon] INFO: [32m🚀 Database connected successfully[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [36m🌱 Starting database seeding...[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [33m[39m
+[33m╔═════════════════════════════════════╗[39m
+[33m║  🚀 Server launched successfully!   ║[39m
+[33m║  🌐 Running on: 127.0.0.1:5000      ║[39m
+[33m║  📦 Environment: development      ║[39m
+[33m╚═════════════════════════════════════╝[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [33mPractice Area (Criminal Defense) already exists.[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [33mPractice Area (White Collar Defense) already exists.[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [33mAttorney already exists.[39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: [32m✔ Database seeding completed successfully![39m
+17/11/2025 08:45:19 [nrb-nayon] INFO: 📅 Automatic unused file cleanup scheduled (daily at 3 AM)
+17/11/2025 08:45:19 [nrb-nayon] INFO: 📅 Unverified users cleanup job scheduled (every 6 hours)
+17/11/2025 08:45:19 [nrb-nayon] INFO: 🧹 Starting unverified users cleanup...
+17/11/2025 08:45:19 [nrb-nayon] INFO: ✅ All cleanup jobs started successfully
+17/11/2025 08:45:19 [nrb-nayon] WARN: Redis connection failed - some features may not work
+17/11/2025 08:45:20 [nrb-nayon] INFO: No unverified users to cleanup
+17/11/2025 08:45:20 [nrb-nayon] INFO: ✅ Unverified users cleanup completed. No users to delete.
+17/11/2025 08:49:39 [nrb-nayon] INFO: Redis disabled for local development
+17/11/2025 08:49:40 [nrb-nayon] INFO: [32m🚀 Database connected successfully[39m
+17/11/2025 08:49:40 [nrb-nayon] INFO: [36m🌱 Starting database seeding...[39m
+17/11/2025 08:49:40 [nrb-nayon] INFO: [33m[39m
+[33m╔═════════════════════════════════════╗[39m
+[33m║  🚀 Server launched successfully!   ║[39m
+[33m║  🌐 Running on: 127.0.0.1:5000      ║[39m
+[33m║  📦 Environment: development      ║[39m
+[33m╚═════════════════════════════════════╝[39m
+17/11/2025 08:49:40 [nrb-nayon] INFO: [33mPractice Area (Criminal Defense) already exists.[39m
+17/11/2025 08:49:40 [nrb-nayon] INFO: [33mPractice Area (White Collar Defense) already exists.[39m
+17/11/2025 08:49:41 [nrb-nayon] INFO: [33mAttorney already exists.[39m
+17/11/2025 08:49:41 [nrb-nayon] INFO: [32m✔ Database seeding completed successfully![39m
+17/11/2025 08:49:41 [nrb-nayon] INFO: 📅 Automatic unused file cleanup scheduled (daily at 3 AM)
+17/11/2025 08:49:41 [nrb-nayon] INFO: 📅 Unverified users cleanup job scheduled (every 6 hours)
+17/11/2025 08:49:41 [nrb-nayon] INFO: 🧹 Starting unverified users cleanup...
+17/11/2025 08:49:41 [nrb-nayon] INFO: ✅ All cleanup jobs started successfully
+17/11/2025 08:49:41 [nrb-nayon] WARN: Redis connection failed - some features may not work
+17/11/2025 08:49:41 [nrb-nayon] INFO: No unverified users to cleanup
+17/11/2025 08:49:41 [nrb-nayon] INFO: ✅ Unverified users cleanup completed. No users to delete.
